@@ -89,7 +89,7 @@ class ChartDataTests: XCTestCase {
         let res = set.entriesForXValue(Double(1621860300))
         let res2 = set.entriesForXValue(Double(1621860310))
 
-        XCTAssertTrue(res == res2)
+        XCTAssertTrue(res?.advanced(by: 1) == res2)
 
         let closestIdx = set.entryIndex(x: Double(1621860310), closestToY: .nan, rounding: .closest)
 
