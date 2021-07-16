@@ -84,12 +84,12 @@ class ChartDataTests: XCTestCase {
 
         //this will fail since an exact match would rely on a 'mid' value in the partition algo to be a matching value.
         //partitioningIndex(partitioningPoint) is not the same as binary search and should noot be used with exact matching criteria as it will not give a reliable result.
-        XCTAssertTrue(test1 != slowMatch)
+        XCTAssertTrue(test2 != slowMatch)
 
         let res = set.entriesForXValue(Double(1621860300))
         let res2 = set.entriesForXValue(Double(1621860310))
 
-        XCTAssertTrue(test1 == slowMatch)
+        XCTAssertTrue(res == res2)
 
         let closestIdx = set.entryIndex(x: Double(1621860310), closestToY: .nan, rounding: .closest)
 
