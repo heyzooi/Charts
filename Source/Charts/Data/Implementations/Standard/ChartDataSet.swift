@@ -215,7 +215,11 @@ open class ChartDataSet: ChartBaseDataSet
         rounding: ChartDataSetRounding) -> Int
     {
         var closest = partitioningIndex { $0.x >= xValue }
-        guard closest < endIndex else { return -1 }
+        if closest == endIndex && rounding != .up
+        {
+          closest = endIndex - 1
+        }
+        guard closest < endIndex && closest >= startIndex else { return -1 }
 
         let closestXValue = self[closest].x
 
