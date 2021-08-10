@@ -89,7 +89,28 @@ class ChartDataTests: XCTestCase {
         let res = set.entriesForXValue(Double(1621860300))
         let res2 = set.entriesForXValue(Double(1621860310))
 
-        XCTAssertTrue(res?.advanced(by: 1) == res2)
+        XCTAssertTrue(res.first == set[slowMatch!])
+        XCTAssertTrue(res2.first == nil)
+      
+        let up = set.entryIndex(x: set.last!.x + 1, closestToY: .nan, rounding: .up)
+        
+        XCTAssertTrue(up == -1)
+      
+        let upClosest = set.entryIndex(x: set.last!.x + 1 , closestToY: .nan, rounding: .closest)
+      
+        XCTAssertTrue(upClosest == set.endIndex - 1)
+      
+        let down = set.entryIndex(x: set.last!.x + 1, closestToY: .nan, rounding: .down)
+      
+        XCTAssertTrue(down == set.endIndex - 1)
+      
+        let minDown = set.entryIndex(x: set.first!.x - 1, closestToY: .nan, rounding: .down)
+      
+        XCTAssertTrue(minDown ==  -1)
+      
+        let minUp = set.entryIndex(x: set.first!.x - 1, closestToY: .nan, rounding: .up)
+    
+        XCTAssertTrue(minUp ==  0)
 
         let closestIdx = set.entryIndex(x: Double(1621860310), closestToY: .nan, rounding: .closest)
 
